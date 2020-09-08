@@ -13,6 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::get('ping', function () {
+    return 'Alive !';
+});
+
+Route::get('test', 'PhotosController@test');
+
+Route::group(['prefix' => 'photo'], function () {
+    Route::post('search', 'PhotosController@search');
+    Route::post('save', 'PhotosController@store');
+    Route::get('saved', 'PhotosController@index');
+});
+
+Route::group(['prefix' => 'photo'], function () {
+    Route::post('search', 'PostController@search');
+    Route::post('saved', 'PostController@saved');
+    Route::get('test', 'PostController@test');
+    
+    // Route::get('edit/{id}', 'PostController@edit');
+    // Route::post('update/{id}', 'PostController@update');
+    // Route::delete('delete/{id}', 'PostController@delete');
 });
